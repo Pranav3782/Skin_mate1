@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let uploadedImageFile = null;
 
-    const API_BASE_URL = "https://skin-mate1-8.onrender.com";
+    const API_BASE_URL = "https://skin-mate1-9.onrender.com";
 
     function toggleLoading(show) {
         if (show) {
@@ -210,3 +210,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
