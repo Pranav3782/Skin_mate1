@@ -1,18 +1,16 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-# from PIL import Image         # Temporarily disabled
-# import pytesseract            # Temporarily disabled
+from PIL import Image
+import pytesseract
 import io
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# We know the LLM part is okay, so we can leave it enabled
 from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage
-
 
 app = FastAPI()
 
@@ -23,7 +21,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# LLM Initialization
 llm = None
 try:
     api_key = os.getenv("OPENAI_API_KEY")
@@ -39,23 +36,27 @@ try:
 except Exception as e:
     print(f"CRITICAL STARTUP ERROR: Failed to initialize ChatGroq client: {e}")
 
-
 class AnalyzeRequest(BaseModel):
     ingredients: str
     product_type: str
-    
+
 @app.post("/extract")
 async def extract_ingredients(image: UploadFile = File(...), product_type: str = Form(...)):
-    print("DEBUG: OCR function is currently disabled. Returning test data.")
-    # The actual OCR logic is commented out for this test
-    return {"ingredients": "OCR disabled for debugging"}
-
+    try:
+        contents = await image.read()
+        img = Image.open(io.BytesIO(contents))
+        text = pytesseract.image_to_string(img)
+        if not text.strip():
+            return {"ingredients": "", "warning": "No text extracted. Check image quality."}
+        return {"ingredients": text.strip()}
+    except Exception as e:
+        return {"error": str(e)}
 
 @app.post("/analyze")
 async def analyze_ingredients(request: AnalyzeRequest):
     if not llm:
-        return {"result": "Analysis failed: The LLM client could not be initialized."}
-    
+        return {"result": "Analysis failed: The LLM client could not be initialized. Please check the server logs."}
+
     prompt = f"Analyze these ingredients for a {request.product_type} product: {request.ingredients}"
     try:
         response = llm.invoke(prompt)
