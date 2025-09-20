@@ -13,7 +13,7 @@ load_dotenv()
 from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" # For Windows
+#pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe" # For Windows
 
 app = FastAPI()
 
@@ -26,7 +26,8 @@ app.add_middleware(
 
 llm = ChatGroq(
     base_url="https://api.groq.com", # <--- CHANGE THIS LINE
-    api_key=os.getenv("Api_key"),
+    # Use the correct, all-caps variable name
+    api_key=os.getenv("OPENAI_API_KEY"),
     model="llama-3.3-70b-versatile"
 )
 
@@ -104,4 +105,5 @@ Ensure your language is clear, professional, and easy to understand for a genera
         print("LLM response:", response.content)
         return {"result": response.content}
     except Exception as e:
+
         return {"result": f"Analysis failed: {e}"}
