@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let uploadedImageFile = null;
 
-    const API_BASE_URL = "http://localhost:8000";
+    const API_BASE_URL = "https://skin-mate1-8.onrender.com";
 
     function toggleLoading(show) {
         if (show) {
@@ -208,4 +208,5 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Failed to generate PNG. Please try again or check console for details.');
         }
     });
+
 });
