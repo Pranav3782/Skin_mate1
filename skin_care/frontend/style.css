@@ -1,0 +1,311 @@
+/* --- Root Variables for a Minimal & Modern Theme --- */
+:root {
+    --bg-color: #f8f9fa;            /* Light neutral gray background */
+    --card-bg-color: #ffffff;
+    --primary-color: #6c9a8b;       /* Muted sage green */
+    --primary-hover-color: #5a8379; /* Darker sage for hover */
+    --text-color: #495057;          /* Dark gray for body text */
+    --heading-color: #212529;       /* Very dark gray for headings */
+    --border-color: #dee2e6;        /* Light gray for borders */
+    --shadow-color: rgba(0, 0, 0, 0.04); /* Softer, more subtle shadow */
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* --- General Body & Layout Styling --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 3rem 1rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+/* --- Header --- */
+.app-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.app-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 0.5rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-color);
+}
+
+/* --- Card Styling --- */
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 5px 15px var(--shadow-color);
+    width: 100%;
+    transition: box-shadow 0.3s ease;
+}
+
+/* --- Form Elements & Buttons --- */
+.input-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: var(--heading-color);
+}
+
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.custom-file-upload i {
+    margin-right: 0.75rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.custom-file-upload:hover {
+    background-color: #f8f9fa;
+    border-color: var(--primary-color);
+}
+
+.file-name-display {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.styled-select, .styled-textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.styled-select:focus, .styled-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(108, 154, 139, 0.2);
+}
+
+.styled-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.styled-button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.styled-button:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+}
+
+.styled-button:disabled {
+    background-color: #cdd5d3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- Results, Loading & Error States --- */
+.analysis-title {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: var(--heading-color);
+    font-weight: 600;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 1rem auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-message {
+    text-align: center;
+    color: #c93a3a;
+    padding: 1rem;
+    background-color: rgba(201, 58, 58, 0.08);
+    border: 1px solid rgba(201, 58, 58, 0.2);
+    border-radius: 12px;
+}
+
+/* --- UPDATED & NEW STYLES FOR ANALYSIS CONTENT --- */
+.analysis-content p {
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.analysis-content h3 {
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.analysis-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1rem;
+}
+
+.analysis-content li {
+    padding-left: 1.5em;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    position: relative;
+}
+
+.analysis-content li::before {
+    content: '•';
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+}
+
+.analysis-content > *:first-child {
+    margin-top: 0;
+}
+
+
+/* --- Download Section --- */
+.download-section {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.download-label {
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.download-button {
+    padding: 0.6rem 1.2rem;
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-family);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.download-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.download-button i {
+    margin-right: 0.5rem;
+}
+
+/* --- MODIFICATION START: Enhanced Mobile-Friendly Styles --- */
+@media (max-width: 640px) {
+    body {
+        padding: 2rem 1rem;
+    }
+
+    .container {
+        gap: 1.25rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+
+    .app-title {
+        font-size: 2.2rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    .styled-button {
+        padding: 0.9rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .download-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .download-button {
+        width: 80%;
+        text-align: center;
+    }
+    .app-title {
+        font-size: 2rem;
+    }
+}
+/* --- MODIFICATION END --- */
