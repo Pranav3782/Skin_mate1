@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Update package lists and install Tesseract AND its key dependency
 # ADDED libgl1-mesa-glx TO FIX THE PATH ISSUE
-RUN apt-get update && apt-get install -y tesseract-ocr
+RUN apt-get update && apt-get install -y tesseract-ocr tesseract-ocr-eng
 
 # Copy your requirements file into the container
 COPY requirements.txt .
@@ -19,4 +19,5 @@ COPY . .
 
 
 # The CMD to run the app will be handled by Render's Start Command
+
 
