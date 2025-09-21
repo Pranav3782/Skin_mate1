@@ -9,7 +9,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from langchain_groq import ChatGroq
+# MODIFICATION 1: Import the Gemini library instead of Groq
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.schema import HumanMessage
 
 app = FastAPI()
@@ -21,25 +22,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# MODIFICATION 2: Change the API key variable name and initialize the Gemini client
 llm = None
 try:
-    api_key = os.getenv("OPENAI_API_KEY")
+    api_key = os.getenv("GOOGLE_API_KEY") # Changed variable name
     if not api_key:
-        print("CRITICAL STARTUP ERROR: The OPENAI_API_KEY environment variable was not found.")
+        print("CRITICAL STARTUP ERROR: The GOOGLE_API_KEY environment variable was not found.")
     else:
-        print("API key found. Initializing ChatGroq client...")
-        llm = ChatGroq(
-            api_key=api_key,
-            model="llama3-70b-8192"
+        print("API key found. Initializing Gemini client...")
+        llm = ChatGoogleGenerativeAI(
+            model="gemini-1.5-flash", # Using a popular and fast Gemini model
+            google_api_key=api_key
         )
-        print("ChatGroq client initialized successfully.")
+        print("Gemini client initialized successfully.")
 except Exception as e:
-    print(f"CRITICAL STARTUP ERROR: Failed to initialize ChatGroq client: {e}")
+    print(f"CRITICAL STARTUP ERROR: Failed to initialize Gemini client: {e}")
+
 
 class AnalyzeRequest(BaseModel):
     ingredients: str
     product_type: str
-
+    
 @app.post("/extract")
 async def extract_ingredients(image: UploadFile = File(...), product_type: str = Form(...)):
     try:
@@ -56,7 +59,7 @@ async def extract_ingredients(image: UploadFile = File(...), product_type: str =
 async def analyze_ingredients(request: AnalyzeRequest):
     if not llm:
         return {"result": "Analysis failed: The LLM client could not be initialized. Please check the server logs."}
-
+    
     prompt = f"Analyze these ingredients for a {request.product_type} product: {request.ingredients}"
     try:
         response = llm.invoke(prompt)
