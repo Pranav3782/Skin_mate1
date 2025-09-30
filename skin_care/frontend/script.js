@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadPdfButton = document.getElementById('downloadPdf');
     const downloadPngButton = document.getElementById('downloadPng');
 
+    // ... other code
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" }); // <-- TO THIS
+// ... other code
+
     let uploadedImageFile = null;
 
     const API_BASE_URL = "https://skin-mate1-18.onrender.com";
@@ -210,6 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
 
 
 
